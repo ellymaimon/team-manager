@@ -5,10 +5,70 @@
 </head>
 <body>
   <div class="container">
-		<h1></h1>
+    <button type="button" id="set-teams">Set Teams</button>
+    <button type="button" id="start-game" disabled>Start Game</button>
+		<div class="row">
+      <div class="col-6">
+        <h2>Home</h2>
+      </div>
+      <div class="col-6">
+        <h2>Away</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <h4 id="home-offense"></h4>
+        <h4 id="home-stamina"></h4>
+      </div>
+      <div class="col-6">
+        <h4 id="away-offense"></h4>
+        <h4 id="away-stamina"></h4>
+      </div>
+    </div>
 
+    <div class="row">
+      <div class="col-6">
+        <div class="row">
+          <div id="homePlayerName" class="col-lg-6">
+            <h4>Name</h4>
+          </div>
+          <div id="homePlayerNumber" class="col-lg-2">
+            <h4>Number</h4>
+          </div>
+          <div id="homePlayerOffense" class="col-lg-2">
+            <h4>Offense</h4>
+          </div>
+          <div id="homePlayerStamina" class="col-lg-2">
+            <h4>Stamina</h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <div id="awayPlayerName" class="col-lg-6">
+            <h4>Name</h4>
+          </div>
+          <div id="awayPlayerNumber" class="col-lg-2">
+            <h4>Number</h4>
+          </div>
+          <div id="awayPlayerOffense" class="col-lg-2">
+            <h4>Offense</h4>
+          </div>
+          <div id="awayPlayerStamina" class="col-lg-2">
+            <h4>Stamina</h4>
+          </div>
+        </div>
+      </div>
+    </div>
 
-
+    <div class="row">
+      <div class="col-lg">
+        <div class="scoreboard">
+          <h2 id="timer"></h2>
+          <h2 id="quarters"></h2>
+        </div>
+      </div>
+    </div>
 
   </div>
 </body>

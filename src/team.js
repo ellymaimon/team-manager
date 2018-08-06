@@ -1,17 +1,16 @@
 export class Team {
 
-  constructor(active, bench) {
+  constructor() {
     this.active = {
-      player1: active[0];
-      player2: active[1];
-      player3: active[2];
+      player1: {},
+      player2: {},
+      player3: {},
     }
     this.bench = {
-      player4: bench[0];
-      player5: bench[1];
-      player6: bench[2];
+      player4: {},
+      player5: {},
+      player6: {},
     }
-    this.rating = 0;
   }
 
   energize() {
@@ -33,17 +32,34 @@ export class Team {
     }, 15000);
   }
 
-  calculateTeamRating() {
+  calculateTeamOffense() {
     let rating = 0;
     let i;
 
     for(i in this.active) {
-      rating += i.offense;
+      rating += this.active[i].offense;
     }
 
     for(i in this.bench) {
-      rating += i.offense;
+      rating += this.bench[i].offense;
     }
+
+    return rating;
+  }
+
+  calculateTeamStamina() {
+    let rating = 0;
+    let i;
+
+    for(i in this.active) {
+      rating += this.active[i].stamina;
+    }
+
+    for(i in this.bench) {
+      rating += this.bench[i].stamina;
+    }
+
+    return rating;
   }
 
 }

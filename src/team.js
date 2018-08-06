@@ -11,6 +11,7 @@ export class Team {
       player5: bench[1];
       player6: bench[2];
     }
+    this.rating = 0;
   }
 
   energize() {
@@ -32,5 +33,17 @@ export class Team {
     }, 15000);
   }
 
+  calculateTeamRating() {
+    let rating = 0;
+    let i;
+
+    for(i in this.active) {
+      rating += i.offense;
+    }
+
+    for(i in this.bench) {
+      rating += i.offense;
+    }
+  }
 
 }

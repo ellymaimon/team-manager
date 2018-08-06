@@ -17,8 +17,7 @@ export class Game {
     let jerseyNumber = random(99);
     let offense = random(10);
     let stamina = random(10);
-    player = new Player(name, jerseyNumber, offense, stamina);
-
+    return player = new Player(name, jerseyNumber, offense, stamina);
   }
 
   callTimeOut() {

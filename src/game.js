@@ -33,8 +33,8 @@ export class Game {
   }
 
   play() {
-      this.playerTeam.score += this.playerTeam.active["player" + this.random(2)].shoot();
-      this.computerTeam.score += this.computerTeam.active["player" + this.random(2)].shoot();
+      this.playerTeam.score += this.playerTeam.active["player" + this.random(3)].shoot();
+      this.computerTeam.score += this.computerTeam.active["player" + this.random(3)].shoot();
       this.durationSecs -= 30;
       
       return this.gameIsOver();
@@ -47,7 +47,7 @@ export class Game {
     }
     if (this.durationMins === 0) {
       this.quarters -= 1;
-      this.durationMins = 12;
+      this.durationMins = 11;
     }
     if (this.quarters === 0) {
       return true;

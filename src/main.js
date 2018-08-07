@@ -39,13 +39,13 @@ $(document).ready(function() {
     $("#away-stamina").text("Stamina: " + game.computerTeam.calculateTeamStamina());
 
     for(let i = 1; i <= 3; i++) {
-      $("#homePlayerName").append("<p>" + game.playerTeam.active["player" + i].name + "</p>");
-      $("#homePlayerOffense").append("<p>" + game.playerTeam.active["player" + i].offense + "</p");
-      $("#homePlayerStamina").append("<p>" + game.playerTeam.active["player" + i].stamina + "</p");
+      $("#namePlayer" + i).append("<p>" + game.playerTeam.active["player" + i].name + "</p>");
+      $("#offensePlayer" + i).append("<p>" + game.playerTeam.active["player" + i].offense + "</p");
+      $("#staminaPlayer" + i).append("<p>" + game.playerTeam.active["player" + i].stamina + "</p");
 
-      $("#awayPlayerName").append("<p>" + game.computerTeam.active["player" + i].name + "</p>");
-      $("#awayPlayerOffense").append("<p>" + game.computerTeam.active["player" + i].offense + "</p");
-      $("#awayPlayerStamina").append("<p>" + game.computerTeam.active["player" + i].stamina + "</p");
+      $("#awayNamePlayer" + i).append("<p>" + game.computerTeam.active["player" + i].name + "</p>");
+      $("#awayOffensePlayer" + i).append("<p>" + game.computerTeam.active["player" + i].offense + "</p");
+      $("#awayStaminaPlayer" + i).append("<p>" + game.computerTeam.active["player" + i].stamina + "</p");
     }
 
     $("#start-game").attr("disabled", false);
@@ -63,6 +63,19 @@ $(document).ready(function() {
         $("#quarters").text(game.quarters);
         $("#homeScore").text(game.playerTeam.score);
         $("#awayScore").text(game.computerTeam.score);
+        $("#pointsPlayer1").text(game.playerTeam.active.player1.points);
+        $("#pointsPlayer2").text(game.playerTeam.active.player2.points);
+        $("#pointsPlayer3").text(game.playerTeam.active.player3.points);
+        $("#pointsPlayer4").text(game.playerTeam.bench.player4.points);
+        $("#pointsPlayer5").text(game.playerTeam.bench.player5.points);
+        $("#pointsPlayer6").text(game.playerTeam.bench.player6.points);
+        $("#awayPointsPlayer1").text(game.computerTeam.active.player1.points);
+        $("#awayPointsPlayer2").text(game.computerTeam.active.player2.points);
+        $("#awayPointsPlayer3").text(game.computerTeam.active.player3.points);
+        $("#awayPointsPlayer4").text(game.computerTeam.bench.player4.points);
+        $("#awayPointsPlayer5").text(game.computerTeam.bench.player5.points);
+        $("#awayPointsPlayer6").text(game.computerTeam.bench.player6.points);
+        
 
       }
     }, 3000);

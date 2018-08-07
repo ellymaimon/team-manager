@@ -13,14 +13,13 @@ export class Game {
 
   buildPlayers() {
     let firstNames = ["Kobe", "Nate", "Thad", "Eric", "Scott", "Nick", "David", "Craig", "Kelli", "Nikki", "Rita", "Renee", "Reese", "LeBron", "Kevin", "Ryan", "Elly", "Franz", "Shaq", "Michael", "Tiger", "Donald", "Barack", "Stephen", "Abel", "Bob", "Sheki", "Constant", "Bob", "Shrek", "Tom", "Aristotle", "Donkey", "Ethan", "Archibald"];
-    let lastNames = ["Bryant", "Redbull", "Maximus", "ButtWiper", "KittyCat", "Pitt", "Frankenstein", "Cumbersnatch", "Cucumberscratch", "James", "Ahn", "Trotter", "O'Neal", "Woods", "Trump", "Obama", "Knpufer", "Scissorhands", "Swanson", "Beetlejuice", "Barker", "Constipation", "Fancy Yancy", "Donkey", "Brady", "The Homeless", "The dRuNkEn", "Glue Sniffer", "Toilet Cleaner", "The Scottish Ogre", "Buckingham"];
+    let lastNames = ["Bryant", "Redbull", "Jerkoff", "The Burritor Slayer", "Maximus", "ButtWiper", "KittyCat", "Pitt", "Frankenstein", "Cumbersnatch", "Cucumberscratch", "James", "Ahn", "Trotter", "O'Neal", "Woods", "Trump", "Obama", "Knpufer", "Scissorhands", "Swanson", "Beetlejuice", "Barker", "Constipation", "Fancy Yancy", "Donkey", "Brady", "The Homeless", "The dRuNkEn", "Glue Sniffer", "Toilet Cleaner", "The Scottish Ogre", "Buckingham"];
     let randomFirst = firstNames[Game.random(firstNames.length) - 1];
     let randomLast = lastNames[Game.random(lastNames.length) - 1];
     let name = randomFirst + " " + randomLast;
-    let jerseyNumber = Game.random(99);
     let offense = Game.random(10);
     let stamina = Game.random(10);
-    let player = new Player(name, jerseyNumber, offense, stamina);
+    let player = new Player(name, offense, stamina);
     return player;
   }
 
@@ -32,11 +31,11 @@ export class Game {
   }
 
   computerSub(playerNumber, subbedPlayerNumber) {
-    computerTeam.substitute(playerNumber, subbedPlayerNumber);
+    this.computerTeam.substitute(playerNumber, subbedPlayerNumber);
   }
 
   substitutePlayer(playerNumber, subbedPlayerNumber) {
-    playerTeam.substitute(playerNumber, subbedPlayerNumber);
+    this.playerTeam.substitute(playerNumber, subbedPlayerNumber);
   }
 
   play() {

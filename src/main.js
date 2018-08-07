@@ -9,6 +9,22 @@ import { Player } from './player.js'
 let game = new Game();
 let interval;
 
+function incrementBenchStamina() {
+  let i;
+
+  for(i in game.playerTeam.bench) {
+    if(game.playerTeam.bench[i].stamina <= game.playerTeam.bench[i].originalStamina) {
+      game.playerTeam.bench[i].stamina++;
+    }
+  }
+
+  for(i in game.computerTeam.bench) {
+    if(game.computerTeam.bench[i].stamina <= game.computerTeam.bench[i].originalStamina) {
+      game.computerTeam.bench[i].stamina++;
+    }
+  }
+}
+
 function populateTeams() {
   let team1 = new Team();
   let team2 = new Team();
@@ -55,13 +71,13 @@ function repopulate() {
 }
 
 function compCheckStamina() {
-  let subIn = "player" + Game.random(3) + 3;
-  console.log(subIn);
+  let subIn = "player" + (Game.random(3) + 3);
+
   Object.keys(game.computerTeam.active).forEach(key => {
-    if (game.computerTeam.active[key].stamina < 3 && game.computerTeam.timeouts > 0) {
-      console.log(key);
+    if (game.computerTeam.active[key].stamina < 2 && game.computerTeam.timeouts > 0) {
       game.computerSub(key, subIn);
       game.computerTeam.timeouts--;
+      game.computerTeam.energize();
     }
   });
 }
@@ -92,8 +108,9 @@ function startGame() {
       $("#awayPointsPlayer5").text(game.computerTeam.bench.player5.points);
       $("#awayPointsPlayer6").text(game.computerTeam.bench.player6.points);
       compCheckStamina();
+      incrementBenchStamina();
     }
-  }, 1000);
+  }, 2000);
 }
 
 function pauseGame() {

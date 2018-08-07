@@ -2,11 +2,11 @@ import { Game } from './game.js'
 
 export class Player {
 
-  constructor(name, number, offense, stamina) {
+  constructor(name, offense, stamina) {
     this.name = name;
-    this.number = number;
     this.offense = offense;
     this.stamina = stamina;
+    this.originalStamina = stamina;
     this.points = 0;
   }
 

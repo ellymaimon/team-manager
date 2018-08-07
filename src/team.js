@@ -20,7 +20,7 @@ export class Team {
   energize() {
     Object.keys(this.active).forEach(key => {
       this.active[key].stamina += 5;
-      if(this.active[key] > 10) {
+      if(this.active[key].stamina > 10) {
         this.active[key].stamina = 10;
       }
     });

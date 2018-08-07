@@ -32,7 +32,11 @@ function repopulate() {
   for(let i = 1; i <= 3; i++) {
     $("#active-players").append("<option value='player" + i + "'>" + game.playerTeam.active["player" + i].name + "</option>")
 
-    $("#namePlayer" + i).html("<p class='name'>" + game.playerTeam.active["player" + i].name + "</p>");
+    // $("#namePlayer" + i).html("<p class='name'>" + game.playerTeam.active["player" + i].name + "</p>");
+    // using a template literal instead
+    $("#namePlayer" + i).html(`<p class='name'>${game.playerTeam.active["player" + i].name}</p>`);
+
+
     $("#offensePlayer" + i).html("<p>" + game.playerTeam.active["player" + i].offense + "</p>");
     $("#staminaPlayer" + i).html("<p>" + game.playerTeam.active["player" + i].stamina + "/" + game.playerTeam.active["player" + i].originalStamina + "</p>");
 

@@ -9,22 +9,6 @@ import { Player } from './player.js'
 let game = new Game();
 let interval;
 
-function incrementBenchStamina() {
-  let i;
-
-  for(i in game.playerTeam.bench) {
-    if(game.playerTeam.bench[i].stamina <= game.playerTeam.bench[i].originalStamina) {
-      game.playerTeam.bench[i].stamina++;
-    }
-  }
-
-  for(i in game.computerTeam.bench) {
-    if(game.computerTeam.bench[i].stamina <= game.computerTeam.bench[i].originalStamina) {
-      game.computerTeam.bench[i].stamina++;
-    }
-  }
-}
-
 function populateTeams() {
   let team1 = new Team();
   let team2 = new Team();
@@ -49,24 +33,24 @@ function repopulate() {
     $("#active-players").append("<option value='player" + i + "'>" + game.playerTeam.active["player" + i].name + "</option>")
 
     $("#namePlayer" + i).html("<p class='name'>" + game.playerTeam.active["player" + i].name + "</p>");
-    $("#offensePlayer" + i).html("<p>" + game.playerTeam.active["player" + i].offense + "</p");
-    $("#staminaPlayer" + i).html("<p>" + game.playerTeam.active["player" + i].stamina + "</p");
+    $("#offensePlayer" + i).html("<p>" + game.playerTeam.active["player" + i].offense + "</p>");
+    $("#staminaPlayer" + i).html("<p>" + game.playerTeam.active["player" + i].stamina + "/" + game.playerTeam.active["player" + i].originalStamina + "</p>");
 
     $("#awayNamePlayer" + i).html("<p>" + game.computerTeam.active["player" + i].name + "</p>");
-    $("#awayOffensePlayer" + i).html("<p>" + game.computerTeam.active["player" + i].offense + "</p");
-    $("#awayStaminaPlayer" + i).html("<p>" + game.computerTeam.active["player" + i].stamina + "</p");
+    $("#awayOffensePlayer" + i).html("<p>" + game.computerTeam.active["player" + i].offense + "</p>");
+    $("#awayStaminaPlayer" + i).html("<p>" + game.computerTeam.active["player" + i].stamina + "/" + game.computerTeam.active["player" + i].originalStamina + "</p>");
   }
 
   for(let i = 4; i <= 6; i++) {
     $("#bench-players").append("<option value='player" + i + "'>" + game.playerTeam.bench["player" + i].name + "</option>")
 
     $("#namePlayer" + i).html("<p class='name'>" + game.playerTeam.bench["player" + i].name + "</p>");
-    $("#offensePlayer" + i).html("<p>" + game.playerTeam.bench["player" + i].offense + "</p");
-    $("#staminaPlayer" + i).html("<p>" + game.playerTeam.bench["player" + i].stamina + "</p");
+    $("#offensePlayer" + i).html("<p>" + game.playerTeam.bench["player" + i].offense + "</p>");
+    $("#staminaPlayer" + i).html("<p>" + game.playerTeam.bench["player" + i].stamina + "/" + game.playerTeam.bench["player" + i].originalStamina + "</p>");
 
     $("#awayNamePlayer" + i).html("<p>" + game.computerTeam.bench["player" + i].name + "</p>");
-    $("#awayOffensePlayer" + i).html("<p>" + game.computerTeam.bench["player" + i].offense + "</p");
-    $("#awayStaminaPlayer" + i).html("<p>" + game.computerTeam.bench["player" + i].stamina + "</p");
+    $("#awayOffensePlayer" + i).html("<p>" + game.computerTeam.bench["player" + i].offense + "</p>");
+    $("#awayStaminaPlayer" + i).html("<p>" + game.computerTeam.bench["player" + i].stamina + "/" + game.computerTeam.bench["player" + i].originalStamina + "</p>");
   }
 }
 
@@ -74,7 +58,7 @@ function compCheckStamina() {
   let subIn = "player" + (Game.random(3) + 3);
 
   Object.keys(game.computerTeam.active).forEach(key => {
-    if (game.computerTeam.active[key].stamina < 2 && game.computerTeam.timeouts > 0) {
+    if (game.computerTeam.active[key].stamina < 3 && game.computerTeam.timeouts > 0) {
       game.computerSub(key, subIn);
       game.computerTeam.timeouts--;
       game.computerTeam.energize();
@@ -94,7 +78,8 @@ function startGame() {
       $("#quarters").text("Quarter: " + game.quarters);
       $("#homeScore").text("Home Team: " + game.playerTeam.score);
       $("#awayScore").text("Away Team: " + game.computerTeam.score);
-      $("#timeouts").text("You have " + game.playerTeam.timeouts + " timeouts remaining.")
+      $("#timeouts").text("You have " + game.playerTeam.timeouts + " timeouts remaining.");
+      $("#comp-timeouts").text("The away team has " + game.computerTeam.timeouts + " timeouts remaining.");
       $("#pointsPlayer1").text(game.playerTeam.active.player1.points);
       $("#pointsPlayer2").text(game.playerTeam.active.player2.points);
       $("#pointsPlayer3").text(game.playerTeam.active.player3.points);
@@ -107,8 +92,9 @@ function startGame() {
       $("#awayPointsPlayer4").text(game.computerTeam.bench.player4.points);
       $("#awayPointsPlayer5").text(game.computerTeam.bench.player5.points);
       $("#awayPointsPlayer6").text(game.computerTeam.bench.player6.points);
+      game.computerTeam.benchEnergize();
+      game.playerTeam.benchEnergize();
       compCheckStamina();
-      incrementBenchStamina();
     }
   }, 2000);
 }

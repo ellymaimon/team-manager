@@ -19,9 +19,16 @@ export class Team {
 
   energize() {
     Object.keys(this.active).forEach(key => {
-      this.active[key].stamina += 5;
-      if(this.active[key].stamina > 10) {
-        this.active[key].stamina = 10;
+      if(this.active[key].stamina < this.active[key].originalStamina) {
+        this.active[key].stamina = this.active[key].originalStamina;
+      }
+    });
+  }
+
+  benchEnergize() {
+    Object.keys(this.bench).forEach(key => {
+      if (this.bench[key].stamina < this.bench[key].originalStamina) {
+        this.bench[key].stamina += 1;
       }
     });
   }

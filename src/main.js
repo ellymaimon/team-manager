@@ -31,7 +31,8 @@ function populateTeams() {
 $(document).ready(function() {
 
   $("#set-teams").click(function(){
-    let newGame = populateTeams();
+    populateTeams();
+
     $("#home-offense").text("Offense: " + game.playerTeam.calculateTeamOffense());
     $("#home-stamina").text("Stamina: " + game.playerTeam.calculateTeamStamina());
     $("#away-offense").text("Offense: " + game.computerTeam.calculateTeamOffense());
@@ -39,12 +40,10 @@ $(document).ready(function() {
 
     for(let i = 1; i <= 3; i++) {
       $("#homePlayerName").append("<p>" + game.playerTeam.active["player" + i].name + "</p>");
-      $("#homePlayerNumber").append("<p>" + game.playerTeam.active["player" + i].number + "</p");
       $("#homePlayerOffense").append("<p>" + game.playerTeam.active["player" + i].offense + "</p");
       $("#homePlayerStamina").append("<p>" + game.playerTeam.active["player" + i].stamina + "</p");
 
       $("#awayPlayerName").append("<p>" + game.computerTeam.active["player" + i].name + "</p>");
-      $("#awayPlayerNumber").append("<p>" + game.computerTeam.active["player" + i].number + "</p");
       $("#awayPlayerOffense").append("<p>" + game.computerTeam.active["player" + i].offense + "</p");
       $("#awayPlayerStamina").append("<p>" + game.computerTeam.active["player" + i].stamina + "</p");
     }
@@ -53,12 +52,19 @@ $(document).ready(function() {
     $("#set-teams").attr("disabled", true);
   });
 
-  $("#start-game").click(function(){
+  $("#start-game").click(function() {
 
     setInterval(() => {
-      game.play();
-      $("#timer").text(game.duration);
-      $("#quarters").text(game.quarters);
+      if(game.play()) {
+        clearInterval();
+        $("#timer").text("0:00");
+      } else {
+        $("#timer").text(game.durationMins + ":" + game.durationSecs);
+        $("#quarters").text(game.quarters);
+        $("#homeScore").text(game.playerTeam.score);
+        $("#awayScore").text(game.computerTeam.score);
+
+      }
     }, 3000);
 
     $("#start-game").attr("disabled", true);

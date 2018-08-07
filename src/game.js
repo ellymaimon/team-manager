@@ -6,7 +6,8 @@ export class Game {
   constructor() {
     this.playerTeam = {};
     this.computerTeam = {};
-    this.duration = 12;
+    this.durationMins = 11;
+    this.durationSecs = 59;
     this.quarters = 4;
   }
 
@@ -32,25 +33,27 @@ export class Game {
   }
 
   play() {
-      this.duration -= 2;
-      if(this.gameIsOver()) this.gameOver();
+      this.playerTeam.score += this.playerTeam.active["player" + this.random(2)].shoot();
+      this.computerTeam.score += this.computerTeam.active["player" + this.random(2)].shoot();
+      this.durationSecs -= 30;
+      
+      return this.gameIsOver();
   }
 
   gameIsOver() {
-    if (this.duration === 0) {
+    if(this.durationSecs <= 0) {
+      this.durationMins -= 1;
+      this.durationSecs = 59;
+    }
+    if (this.durationMins === 0) {
       this.quarters -= 1;
-      this.duration = 12;
+      this.durationMins = 12;
     }
     if (this.quarters === 0) {
-      clearInterval();
       return true;
     } else {
       return false;
     }
-  }
-
-  gameOver() {
-    
   }
 
   random(num) {

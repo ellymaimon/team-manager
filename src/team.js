@@ -11,6 +11,7 @@ export class Team {
       player5: {},
       player6: {},
     }
+    this.score = 0;
   }
 
   energize() {

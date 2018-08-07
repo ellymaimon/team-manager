@@ -12,8 +12,8 @@ export class Game {
   }
 
   buildPlayers() {
-    let firstNames = ["Kobe", "Nate", "Thad", "Eric", "Scott", "Nick", "David", "Craig", "Kelli", "Nikki", "Rita", "Renee", "Reese", "LeBron", "Kevin", "Ryan", "Elly", "Franz", "Shaq", "Michael", "Tiger", "Donald", "Barack", "Stephen", "Abel", "Bob", "Sheki", "Constant", "Bob", "Shrek", "Tom", "Aristotle", "Donkey"];
-    let lastNames = ["Bryant", "Redbull", "Maximus", "ButtWiper", "KittyCat", "Pitt", "Frankenstein", "Cumbersnatch", "Cucumberscratch", "James", "Ahn", "Trotter", "O'Neal", "Woods", "Trump", "Obama", "Knpufer", "Scissorhands", "Swanson", "Beetlejuice", "Barker", "Constipation", "Fancy Yancy", "Donkey", "Brady", "The Homeless", "The dRuNkEn", "Glue Sniffer", "Toilet Cleaner", "The Scottish Ogre"];
+    let firstNames = ["Kobe", "Nate", "Thad", "Eric", "Scott", "Nick", "David", "Craig", "Kelli", "Nikki", "Rita", "Renee", "Reese", "LeBron", "Kevin", "Ryan", "Elly", "Franz", "Shaq", "Michael", "Tiger", "Donald", "Barack", "Stephen", "Abel", "Bob", "Sheki", "Constant", "Bob", "Shrek", "Tom", "Aristotle", "Donkey", "Ethan", "Archibald"];
+    let lastNames = ["Bryant", "Redbull", "Maximus", "ButtWiper", "KittyCat", "Pitt", "Frankenstein", "Cumbersnatch", "Cucumberscratch", "James", "Ahn", "Trotter", "O'Neal", "Woods", "Trump", "Obama", "Knpufer", "Scissorhands", "Swanson", "Beetlejuice", "Barker", "Constipation", "Fancy Yancy", "Donkey", "Brady", "The Homeless", "The dRuNkEn", "Glue Sniffer", "Toilet Cleaner", "The Scottish Ogre", "Buckingham"];
     let randomFirst = firstNames[Game.random(firstNames.length) - 1];
     let randomLast = lastNames[Game.random(lastNames.length) - 1];
     let name = randomFirst + " " + randomLast;
@@ -25,15 +25,10 @@ export class Game {
   }
 
   callTimeOut() {
-    if (this.playerTeam.timeouts > 0)
-    {
+    if (this.playerTeam.timeouts > 0) {
       this.playerTeam.energize();
       this.playerTeam.timeouts -= 1;
     }
-    else {
-      return "You don't have any timeouts left!!"
-    }
-
   }
 
   substitutePlayer(playerNumber, subbedPlayerNumber) {
@@ -44,7 +39,12 @@ export class Game {
       this.playerTeam.score += this.playerTeam.getRandomPlayer().shoot();
       this.computerTeam.score += this.computerTeam.getRandomPlayer().shoot();
       this.durationSecs -= 30;
-
+      let player = this.playerTeam.getRandomPlayer();
+      let compPlayer = this.computerTeam.getRandomPlayer();
+      if (player.stamina > 0) {
+        player.stamina--;
+        compPlayer.stamina--;
+      }
       return this.gameIsOver();
   }
 
@@ -53,14 +53,14 @@ export class Game {
       this.durationMins -= 1;
       this.durationSecs = 59;
     }
-    if (this.durationMins === 0) {
+    if (this.durationMins < 0) {
       this.quarters += 1;
       this.durationMins = 11;
-      if (playerTeam.timeouts < 2) {
-        playerTeam.timeouts++;
+      while (this.playerTeam.timeouts < 2) {
+        this.playerTeam.timeouts++;
       }
     }
-    if (this.quarters === 4) {
+    if (this.quarters > 4) {
       return true;
     } else {
       return false;

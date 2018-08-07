@@ -28,16 +28,45 @@ function populateTeams() {
   game.computerTeam = team2;
 }
 
+function repopulate() {
+  for(let i = 1; i <= 3; i++) {
+    $("#active-players").append("<option value='player" + i + "'>" + game.playerTeam.active["player" + i].name + "</option>")
+
+    $("#namePlayer" + i).html("<p class='name'>" + game.playerTeam.active["player" + i].name + "</p>");
+    $("#offensePlayer" + i).html("<p>" + game.playerTeam.active["player" + i].offense + "</p");
+    $("#staminaPlayer" + i).html("<p>" + game.playerTeam.active["player" + i].stamina + "</p");
+
+    $("#awayNamePlayer" + i).html("<p>" + game.computerTeam.active["player" + i].name + "</p>");
+    $("#awayOffensePlayer" + i).html("<p>" + game.computerTeam.active["player" + i].offense + "</p");
+    $("#awayStaminaPlayer" + i).html("<p>" + game.computerTeam.active["player" + i].stamina + "</p");
+  }
+
+  for(let i = 4; i <= 6; i++) {
+    $("#bench-players").append("<option value='player" + i + "'>" + game.playerTeam.bench["player" + i].name + "</option>")
+
+    $("#namePlayer" + i).html("<p class='name'>" + game.playerTeam.bench["player" + i].name + "</p>");
+    $("#offensePlayer" + i).html("<p>" + game.playerTeam.bench["player" + i].offense + "</p");
+    $("#staminaPlayer" + i).html("<p>" + game.playerTeam.bench["player" + i].stamina + "</p");
+
+    $("#awayNamePlayer" + i).html("<p>" + game.computerTeam.bench["player" + i].name + "</p>");
+    $("#awayOffensePlayer" + i).html("<p>" + game.computerTeam.bench["player" + i].offense + "</p");
+    $("#awayStaminaPlayer" + i).html("<p>" + game.computerTeam.bench["player" + i].stamina + "</p");
+  }
+}
+
 function startGame() {
     interval = setInterval(() => {
     if(game.play()) {
       clearInterval();
       $("#timer").text("0:00");
     } else {
-      $("#timer").text(game.durationMins + ":" + game.durationSecs);
-      $("#quarters").text(game.quarters);
-      $("#homeScore").text(game.playerTeam.score);
-      $("#awayScore").text(game.computerTeam.score);
+      clearSubForm();
+      repopulate();
+      $("#timer").text("Time Remaining: " + game.durationMins + ":" + game.durationSecs);
+      $("#quarters").text("Quarter: " + game.quarters);
+      $("#homeScore").text("Home Team: " + game.playerTeam.score);
+      $("#awayScore").text("Away Team: " + game.computerTeam.score);
+      $("#timeouts").text("You have " + game.playerTeam.timeouts + " timeouts remaining.")
       $("#pointsPlayer1").text(game.playerTeam.active.player1.points);
       $("#pointsPlayer2").text(game.playerTeam.active.player2.points);
       $("#pointsPlayer3").text(game.playerTeam.active.player3.points);
@@ -51,11 +80,16 @@ function startGame() {
       $("#awayPointsPlayer5").text(game.computerTeam.bench.player5.points);
       $("#awayPointsPlayer6").text(game.computerTeam.bench.player6.points);
     }
-  }, 3000);
+  }, 1000);
 }
 
 function pauseGame() {
   clearInterval(interval);
+}
+
+function clearSubForm() {
+  $("#active-players").html("");
+  $("#bench-players").html("");
 }
 
 
@@ -69,27 +103,7 @@ $(document).ready(function() {
     $("#away-offense").text("Offense: " + game.computerTeam.calculateTeamOffense());
     $("#away-stamina").text("Stamina: " + game.computerTeam.calculateTeamStamina());
 
-    for(let i = 1; i <= 3; i++) {
-      $("#namePlayer" + i).append("<button class='sub-in' id='player" + i + "'></button>");
-      $("#namePlayer" + i).append("<p class='name'>" + game.playerTeam.active["player" + i].name + "</p>");
-      $("#offensePlayer" + i).append("<p>" + game.playerTeam.active["player" + i].offense + "</p");
-      $("#staminaPlayer" + i).append("<p>" + game.playerTeam.active["player" + i].stamina + "</p");
-
-      $("#awayNamePlayer" + i).append("<p>" + game.computerTeam.active["player" + i].name + "</p>");
-      $("#awayOffensePlayer" + i).append("<p>" + game.computerTeam.active["player" + i].offense + "</p");
-      $("#awayStaminaPlayer" + i).append("<p>" + game.computerTeam.active["player" + i].stamina + "</p");
-    }
-
-    for(let i = 4; i <= 6; i++) {
-      $("#namePlayer" + i).append("<button class='sub-out' id='player" + i + "'></button>");
-      $("#namePlayer" + i).append("<p class='name'>" + game.playerTeam.bench["player" + i].name + "</p>");
-      $("#offensePlayer" + i).append("<p>" + game.playerTeam.bench["player" + i].offense + "</p");
-      $("#staminaPlayer" + i).append("<p>" + game.playerTeam.bench["player" + i].stamina + "</p");
-
-      $("#awayNamePlayer" + i).append("<p>" + game.computerTeam.bench["player" + i].name + "</p>");
-      $("#awayOffensePlayer" + i).append("<p>" + game.computerTeam.bench["player" + i].offense + "</p");
-      $("#awayStaminaPlayer" + i).append("<p>" + game.computerTeam.bench["player" + i].stamina + "</p");
-    }
+    repopulate();
 
     $("#start-game").attr("disabled", false);
     $("#set-teams").attr("disabled", true);
@@ -102,16 +116,32 @@ $(document).ready(function() {
   });
 
   $("#call-timeout").click(function() {
-    pauseGame();
-    $("#start-game").attr("disabled", false);
-    $("#call-timeout").attr("disabled", true);
-    $("#substitute").attr("disabled", false);
+    if (game.playerTeam.timeouts === 0) {
+      alert("You dont have timeouts left!");
+    } else {
+      pauseGame();
+      game.callTimeOut();
+      $("#start-game").attr("disabled", false);
+      $("#call-timeout").attr("disabled", true);
+      $("#substitute").attr("disabled", false);
+    }
   });
 
   $("#substitute").click(function() {
     $("#start-game").attr("disabled", true);
     $("#substitute").attr("disabled", true);
-    $(".sub-in").css("display", "inline");
+    $(".substitute").show();
+  });
+
+  $("#sub-form").submit(function(event) {
+    event.preventDefault();
+    let subout = $("#active-players").val();
+    let subin = $("#bench-players").val();
+    game.playerTeam.substitute(subout, subin);
+    clearSubForm();
+    repopulate();
+    $(".substitute").hide();
+    $("#start-game").attr("disabled", false);
   });
 
 });

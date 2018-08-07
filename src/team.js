@@ -26,8 +26,10 @@ export class Team {
   }
 
   substitute(activePlayer, benchPlayer) {
-    this.bench[benchPlayer] = this.active[activePlayer];
-    this.active[activePlayer] = this.bench[benchPlayer];
+    let subbedOut = this.active[activePlayer]; //player1
+    let subbedIn = this.bench[benchPlayer]; //player4
+    this.bench[benchPlayer] = subbedOut;
+    this.active[activePlayer] = subbedIn;
   }
 
   givePepTalk(activePlayer) {

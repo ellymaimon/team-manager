@@ -10,6 +10,24 @@
     <button type="button" id="call-timeout" disabled>Call Timeout!</button>
     <button type="button" id="substitute" disabled>Substitute</button>
 
+    <div class="substitute">
+      <form id="sub-form">
+        <h2>Substitution</h2>
+        <div class="form-group">
+          <label for="player">Active player to be subbed out:</label>
+            <select class="form-control" name="player" id="active-players">
+
+            </select>
+        </div>
+        <div class="form-group">
+          <label for="player">Bench player to come in:</label>
+            <select class="form-control" name="player" id="bench-players">
+
+            </select>
+        </div>
+        <button class="btn btn-success btn-sm" type="submit">Substitute Players</button>
+      </form>
+    </div>
 
 		<div class="row">
       <div class="col-6">
@@ -128,6 +146,7 @@
         <div class="scoreboard">
           <h1 id="timer"></h1>
           <h1 id="quarters"></h1>
+          <h3 id="timeouts"></h3>
           <div class="col-lg-6">
             <h3 id="homeScore"></h3>
           </div>

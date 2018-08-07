@@ -7,6 +7,10 @@
   <div class="container">
     <button type="button" id="set-teams">Set Teams</button>
     <button type="button" id="start-game" disabled>Start Game</button>
+    <button type="button" id="call-timeout" disabled>Call Timeout!</button>
+    <button type="button" id="substitute" disabled>Substitute</button>
+
+
 		<div class="row">
       <div class="col-6">
         <h2>Home</h2>
@@ -17,12 +21,12 @@
     </div>
     <div class="row">
       <div class="col-6">
-        <h4 id="home-offense"></h4>
-        <h4 id="home-stamina"></h4>
+        <h4 class="rating" id="home-offense"></h4>
+        <h4 class="rating" id="home-stamina"></h4>
       </div>
       <div class="col-6">
-        <h4 id="away-offense"></h4>
-        <h4 id="away-stamina"></h4>
+        <h4 class="rating" id="away-offense"></h4>
+        <h4 class="rating" id="away-stamina"></h4>
       </div>
     </div>
 
@@ -30,37 +34,41 @@
       <div class="col-6">
         <div class="row">
           <div id="homePlayerName" class="col-lg-6">
-            <h6>Name</h6>
+            <h5>Name</h5>
             <p id="namePlayer1"></p>
             <p id="namePlayer2"></p>
             <p id="namePlayer3"></p>
+            <hr>
             <p id="namePlayer4"></p>
             <p id="namePlayer5"></p>
             <p id="namePlayer6"></p>
           </div>
           <div id="homePlayerOffense" class="col-lg-2">
-            <h6>Offense</h6>
+            <h5>Offense</h5>
             <p id="offensePlayer1"></p>
             <p id="offensePlayer2"></p>
             <p id="offensePlayer3"></p>
+            <hr>
             <p id="offensePlayer4"></p>
             <p id="offensePlayer5"></p>
             <p id="offensePlayer6"></p>
           </div>
           <div id="homePlayerStamina" class="col-lg-2">
-            <h6>Stamina</h6>
+            <h5>Stamina</h5>
             <p id="staminaPlayer1"></p>
             <p id="staminaPlayer2"></p>
             <p id="staminaPlayer3"></p>
+            <hr>
             <p id="staminaPlayer4"></p>
             <p id="staminaPlayer5"></p>
             <p id="staminaPlayer6"></p>
           </div>
           <div id="homePlayerPoints" class="col-lg-2">
-            <h6>Points</h6>
+            <h5>Points</h5>
             <p id="pointsPlayer1"></p>
             <p id="pointsPlayer2"></p>
             <p id="pointsPlayer3"></p>
+            <hr>
             <p id="pointsPlayer4"></p>
             <p id="pointsPlayer5"></p>
             <p id="pointsPlayer6"></p>
@@ -71,37 +79,41 @@
       <div class="col-6">
         <div class="row">
           <div id="awayPlayerName" class="col-lg-6">
-            <h6>Name</h6>
+            <h5>Name</h5>
             <p id="awayNamePlayer1"></p>
             <p id="awayNamePlayer2"></p>
             <p id="awayNamePlayer3"></p>
+            <hr>
             <p id="awayNamePlayer4"></p>
             <p id="awayNamePlayer5"></p>
             <p id="awayNamePlayer6"></p>
           </div>
           <div id="awayPlayerOffense" class="col-lg-2">
-            <h6>Offense</h6>
+            <h5>Offense</h5>
             <p id="awayOffensePlayer1"></p>
             <p id="awayOffensePlayer2"></p>
             <p id="awayOffensePlayer3"></p>
+            <hr>
             <p id="awayOffensePlayer4"></p>
             <p id="awayOffensePlayer5"></p>
             <p id="awayOffensePlayer6"></p>
           </div>
           <div id="awayPlayerStamina" class="col-lg-2">
-            <h6>Stamina</h6>
+            <h5>Stamina</h5>
             <p id="awayStaminaPlayer1"></p>
             <p id="awayStaminaPlayer2"></p>
             <p id="awayStaminaPlayer3"></p>
+            <hr>
             <p id="awayStaminaPlayer4"></p>
             <p id="awayStaminaPlayer5"></p>
             <p id="awayStaminaPlayer6"></p>
           </div>
           <div id="awayPlayerPoints" class="col-lg-2">
-            <h6>Points</h6>
+            <h5>Points</h5>
             <p id="awayPointsPlayer1"></p>
             <p id="awayPointsPlayer2"></p>
             <p id="awayPointsPlayer3"></p>
+            <hr>
             <p id="awayPointsPlayer4"></p>
             <p id="awayPointsPlayer5"></p>
             <p id="awayPointsPlayer6"></p>

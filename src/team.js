@@ -1,3 +1,5 @@
+import { Game } from './game.js'
+
 export class Team {
 
   constructor() {
@@ -12,13 +14,15 @@ export class Team {
       player6: {},
     }
     this.score = 0;
+    this.timeouts = 2;
   }
 
   energize() {
-    let i;
-    for(i in this.active) {
-      i.stamina += 5;
-    }
+    Object.keys(this.active).forEach(key => {
+      if (this.active[key].stamina < 12) {
+        this.active[key].stamina += 5;
+      }
+    });
   }
 
   substitute(activePlayer, benchPlayer) {
@@ -61,6 +65,15 @@ export class Team {
     }
 
     return rating;
+  }
+
+  getRandomPlayer() {
+    let players = [];
+    Object.keys(this.active).forEach(key => {
+      players.push(this.active[key]);
+    });
+
+    return players[Game.random(3) - 1];
   }
 
 }

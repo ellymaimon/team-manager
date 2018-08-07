@@ -1,7 +1,43 @@
-.col-6 {
+.row {
+  margin-top: 7px;
+}
+
+.col-lg-2 {
   text-align: center;
+}
+
+h5 {
+  margin-bottom: 15px;
+}
+
+.rating {
+  display: inline;
 }
 
 .scoreboard {
   text-align: center;
+}
+
+.name {
+  display: inline;
+}
+
+.sub-in {
+  display: none;
+  height: 20px;
+  width: 20px;
+  border: 2px solid crimson;
+  background-color: crimson;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.sub-out {
+  display: none;
+  height: 20px;
+  width: 20px;
+  border: 2px solid green;
+  background-color: green;
+  border-radius: 10px;
+  margin-right: 10px;
 }

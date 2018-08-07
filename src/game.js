@@ -8,24 +8,32 @@ export class Game {
     this.computerTeam = {};
     this.durationMins = 11;
     this.durationSecs = 59;
-    this.quarters = 4;
+    this.quarters = 1;
   }
 
   buildPlayers() {
     let firstNames = ["Kobe", "Nate", "Thad", "Eric", "Scott", "Nick", "David", "Craig", "Kelli", "Nikki", "Rita", "Renee", "Reese", "LeBron", "Kevin", "Ryan", "Elly", "Franz", "Shaq", "Michael", "Tiger", "Donald", "Barack", "Stephen", "Abel", "Bob", "Sheki", "Constant", "Bob", "Shrek", "Tom", "Aristotle", "Donkey"];
     let lastNames = ["Bryant", "Redbull", "Maximus", "ButtWiper", "KittyCat", "Pitt", "Frankenstein", "Cumbersnatch", "Cucumberscratch", "James", "Ahn", "Trotter", "O'Neal", "Woods", "Trump", "Obama", "Knpufer", "Scissorhands", "Swanson", "Beetlejuice", "Barker", "Constipation", "Fancy Yancy", "Donkey", "Brady", "The Homeless", "The dRuNkEn", "Glue Sniffer", "Toilet Cleaner", "The Scottish Ogre"];
-    let randomFirst = firstNames[this.random(firstNames.length) - 1];
-    let randomLast = lastNames[this.random(lastNames.length) - 1];
+    let randomFirst = firstNames[Game.random(firstNames.length) - 1];
+    let randomLast = lastNames[Game.random(lastNames.length) - 1];
     let name = randomFirst + " " + randomLast;
-    let jerseyNumber = this.random(99);
-    let offense = this.random(10);
-    let stamina = this.random(10);
+    let jerseyNumber = Game.random(99);
+    let offense = Game.random(10);
+    let stamina = Game.random(10);
     let player = new Player(name, jerseyNumber, offense, stamina);
     return player;
   }
 
   callTimeOut() {
-    playerTeam.energize();
+    if (this.playerTeam.timeouts > 0)
+    {
+      this.playerTeam.energize();
+      this.playerTeam.timeouts -= 1;
+    }
+    else {
+      return "You don't have any timeouts left!!"
+    }
+
   }
 
   substitutePlayer(playerNumber, subbedPlayerNumber) {
@@ -33,10 +41,10 @@ export class Game {
   }
 
   play() {
-      this.playerTeam.score += this.playerTeam.active["player" + this.random(3)].shoot();
-      this.computerTeam.score += this.computerTeam.active["player" + this.random(3)].shoot();
+      this.playerTeam.score += this.playerTeam.getRandomPlayer().shoot();
+      this.computerTeam.score += this.computerTeam.getRandomPlayer().shoot();
       this.durationSecs -= 30;
-      
+
       return this.gameIsOver();
   }
 
@@ -46,18 +54,23 @@ export class Game {
       this.durationSecs = 59;
     }
     if (this.durationMins === 0) {
-      this.quarters -= 1;
+      this.quarters += 1;
       this.durationMins = 11;
+      if (playerTeam.timeouts < 2) {
+        playerTeam.timeouts++;
+      }
     }
-    if (this.quarters === 0) {
+    if (this.quarters === 4) {
       return true;
     } else {
       return false;
     }
   }
 
-  random(num) {
+  static random(num) {
     let random = Math.floor(Math.random() * num) + 1;
     return random;
   }
+
+
 }

@@ -1,3 +1,5 @@
+import { Game } from './game.js'
+
 export class Player {
 
   constructor(name, number, offense, stamina) {
@@ -9,7 +11,7 @@ export class Player {
   }
 
   shoot() {
-    let missChance = Math.floor(Math.random() * 10);
+    let missChance = Game.random(11) - 1;
     if(this.offense > missChance) {
       this.points += 2;
       return 2;

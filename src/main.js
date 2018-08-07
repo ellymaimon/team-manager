@@ -54,6 +54,18 @@ function repopulate() {
   }
 }
 
+function compCheckStamina() {
+  let subIn = "player" + Game.random(3) + 3;
+  console.log(subIn);
+  Object.keys(game.computerTeam.active).forEach(key => {
+    if (game.computerTeam.active[key].stamina < 3 && game.computerTeam.timeouts > 0) {
+      console.log(key);
+      game.computerSub(key, subIn);
+      game.computerTeam.timeouts--;
+    }
+  });
+}
+
 function startGame() {
     interval = setInterval(() => {
     if(game.play()) {
@@ -79,6 +91,7 @@ function startGame() {
       $("#awayPointsPlayer4").text(game.computerTeam.bench.player4.points);
       $("#awayPointsPlayer5").text(game.computerTeam.bench.player5.points);
       $("#awayPointsPlayer6").text(game.computerTeam.bench.player6.points);
+      compCheckStamina();
     }
   }, 1000);
 }

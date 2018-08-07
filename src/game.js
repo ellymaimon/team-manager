@@ -31,6 +31,10 @@ export class Game {
     }
   }
 
+  computerSub(playerNumber, subbedPlayerNumber) {
+    computerTeam.substitute(playerNumber, subbedPlayerNumber);
+  }
+
   substitutePlayer(playerNumber, subbedPlayerNumber) {
     playerTeam.substitute(playerNumber, subbedPlayerNumber);
   }
@@ -43,6 +47,8 @@ export class Game {
       let compPlayer = this.computerTeam.getRandomPlayer();
       if (player.stamina > 0) {
         player.stamina--;
+      }
+      if (compPlayer.stamina) {
         compPlayer.stamina--;
       }
       return this.gameIsOver();
@@ -53,11 +59,18 @@ export class Game {
       this.durationMins -= 1;
       this.durationSecs = 59;
     }
+    if (this.durationMins < 0 && this.quarters === 2) {
+      this.playerTeam.energize();
+      this.computerTeam.energize();
+    }
     if (this.durationMins < 0) {
       this.quarters += 1;
       this.durationMins = 11;
       while (this.playerTeam.timeouts < 2) {
         this.playerTeam.timeouts++;
+      }
+      while (this.computerTeam.timeouts < 2) {
+        this.computerTeam.timeouts++;
       }
     }
     if (this.quarters > 4) {

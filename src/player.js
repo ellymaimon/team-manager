@@ -11,11 +11,12 @@ export class Player {
   }
 
   shoot() {
-    let missChance = Game.random(11) - 1;
-    if(this.offense > missChance) {
+    let offense = Math.ceil((this.stamina + this.offense) / 2);
+    let missChance = Game.random(11) - 1; //number 1-10
+    if(offense > missChance) {
       this.points += 2;
       return 2;
-    } else if(this.offense === missChance) {
+    } else if(offense === missChance) {
       this.points += 3;
       return 3;
     } else {
